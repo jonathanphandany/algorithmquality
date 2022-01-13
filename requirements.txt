@@ -1,0 +1,12 @@
+flask
+gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
+Pillow
+opencv-python
+numpy
+pandas
+PyWavelets
+seaborn

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='style.css') }}"
+      rel="stylesheet"
+    />
+    <link href="image/icon.png" rel="Icon" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Algorithm Quality</title>
+  </head>
+
+  <body>
+
+    <div id="title" class="text-center">
+      <div class="row">
+        <div class="col-sm-4">
+          <img src="{{url_for('static', filename='logo.jpg')}}" alt="logo" />
+        </div>
+        <div class="col-sm-8 mid text-center">
+          <h2>Check Your Algorithm Here!</h2>
+          <p style="font-size: 16px;">
+            The First Website to check the <b>Image Compression Algorithm</b>
+            using your own Bitmap Image!
+            <br>Easy and free to use! <b>|</b> Image format of 512x512 24-bit Bitmap(.bmp)
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="algorithm" class="layer">
+      <div class="row">
+
+        <div>
+          <form method="post" action="/" enctype="multipart/form-data">
+
+            <div class="col-sm-4">
+              <h2>Select File to Upload</h2>
+              <dl>
+                <p>
+                  <input
+                    type="file"
+                    name="file"
+                    class="form-control"
+                    autocomplete="off"
+                    required
+                  />
+                </p>
+              </dl>
+            </div>
+
+            <div class="col-sm-8">
+              <h2>Choose An Algorithm</h2>
+              <dl>
+                <p>
+                  <select type="algorithm" name="algorithm" id="algorithm" required>
+                    <option value="" selected disabled>- Select the Algorithm -</option>   
+                    <option value="DCT">Discrete Cosine Transform (DCT)</option>
+                    <option value="DWT">Discrete Wavelet Transform (DWT)</option>
+                    <option value="BTC">Block Truncation Coding (BTC)</option>
+                    <option value="AMBTC">Absolute Moment Block Truncation Coding (AMBTC)</option>
+                    <option value="SVD">Singular Value Decomposition (SVD)</option>
+                  </select>
+                </p>
+              </dl>
+
+            </div>
+
+            <div class="col-sm-4">
+              <div id="image">
+                <h4>Original Image</h4>
+                <p>
+                  {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                          {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+    
+                  {% if filename %}
+                  <div class=image>
+                    <img src="{{ url_for('display_image', filename=filename) }}" width="100%" height="100%">
+                  </div>
+                  {% endif %}
+                  </p>
+              </div>
+            </div>
+
+            <div class="col-sm-8">
+              <h4>Algorithm Parameter</h4>
+              <label for="p_dct">Enter the Following Parameters</label><br>
+              <input type="number" class="form_parameter" id="par1" name="par1" required>
+              <input type="number" class="form_parameter" id="par2" name="par2" required>
+              <input type="number" class="form_parameter" id="par3" name="par3" required>
+              <input type="number" class="form_parameter" id="par4" name="par4" required>
+            </div>
+
+            <div class="col-sm-2">
+              <br>
+              {% if compress1 %}
+                <img src="{{ compress1 }}" width="100%" height="100%">  
+              {% endif %}
+              
+              {% if mse1 %}
+                <p style="margin-top: 12px;"><b>MSE:</b> {{ mse1 }}</p>
+              {% endif %}
+              {% if psnr1 %}
+                <p><b>PSNR:</b> {{ psnr1 }}</p>
+              {% endif %}
+              {% if cr1 %}
+                <p><b>CR:</b> {{ cr1 }}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-sm-2">
+              <br>
+              {% if compress1 %}
+                <img src="{{ compress2 }}" width="100%" height="100%">  
+              {% endif %}
+              
+              {% if mse2 %}
+                <p style="margin-top: 12px;"><b>MSE:</b> {{ mse2 }}</p>
+              {% endif %}
+              {% if psnr2 %}
+                <p><b>PSNR:</b> {{ psnr2 }}</p>
+              {% endif %}
+              {% if cr2 %}
+                <p><b>CR:</b> {{ cr2 }}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-sm-2">
+              <br>
+              {% if compress1 %}
+                <img src="{{ compress3 }}" width="100%" height="100%">  
+              {% endif %}
+              
+              {% if mse3 %}
+                <p style="margin-top: 12px;"><b>MSE:</b> {{ mse3 }}</p>
+              {% endif %}
+              {% if psnr3 %}
+                <p><b>PSNR:</b> {{ psnr3 }}</p>
+              {% endif %}
+              {% if cr3 %}
+                <p><b>CR:</b> {{ cr3 }}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-sm-2">
+              <br>
+              {% if compress1 %}
+                <img src="{{ compress4 }}" width="100%" height="100%">  
+              {% endif %}
+              
+              {% if mse4 %}
+                <p style="margin-top: 12px;"><b>MSE:</b> {{ mse4 }}</p>
+              {% endif %}
+              {% if psnr4 %}
+                <p><b>PSNR:</b> {{ psnr4 }}</p>
+              {% endif %}
+              {% if cr4 %}
+                <p><b>CR:</b> {{ cr4 }}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-lg-12 text-center">
+              <div class="col-lg-4">
+                {% if stat1 %}
+                  <p><b>Mean Square Error Plot</b></p>
+                  <img src="{{ stat1 }}" width="100%" height="100%">
+                {% endif %}
+              </div>
+              <div class="col-lg-4">
+                {% if stat2 %}
+                  <p><b>Peak Signal to Noise Ratio Plot</b></p>
+                  <img src="{{ stat2 }}" width="100%" height="100%">
+                {% endif %}
+              </div>
+              <div class="col-lg-4">
+                {% if stat3 %}
+                  <p><b>Compression Ratio Plot</b></p>
+                  <img src="{{ stat3 }}" width="100%" height="100%">
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <p class="text-center">
+                <br>
+                <input type="submit" value="Submit" class="btn btn-info" onclick="show()"/>
+              </p>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="myinfo" class="footer">
+      <div class="row text-center">
+        <h4>Personal Projects</h4>
+        <a href="https://www.facebook.com/jonathanphandany/" target="blank_"><img src="{{url_for('static', filename='facebook.png')}}" width="25px" height="25px"></a>
+        <a href="https://www.instagram.com/jonathanlp19/" target="blank_"><img src="{{url_for('static', filename='instagram.png')}}" width="25px" height="25px"></a>
+        <a href="https://www.twitter.com/" target="blank_"><img src="{{url_for('static', filename='twitter.png')}}" width="25px" height="25px"></a>
+        <p style="margin-top: 6px;"><b>Jonathan Phandany </b>| Copyright ©2022</p>
+      </div>
+    </div>
+
+  </body>
+
+  <!-- <script src="{{ url_for('static', filename='algorithm.js') }}"></script> -->
+
+</html>
